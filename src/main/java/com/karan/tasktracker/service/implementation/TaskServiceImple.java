@@ -8,6 +8,7 @@ import com.karan.tasktracker.repository.TaskRepo;
 import com.karan.tasktracker.service.TaskService;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -49,4 +50,32 @@ public class TaskServiceImple implements TaskService {
                 .map(TaskMapper::toDto)
                 .collect(Collectors.toList());
     }
+
+//    @Override
+//    public TaskResponseDTO markInProgress(Long id) {
+//        Task task = repo.findById(id).orElseThrow(()->
+//                new RuntimeException("Task not found with id"+id));
+//
+//        task.setStatus("IN_PROGRESS");
+//        task.setUpdatedAt(LocalDateTime.now());
+//
+//        Task updatedTask = repo.save(task);
+//
+//        return TaskMapper.toDto(updatedTask);
+//    }
+//
+//    @Override
+//    public TaskResponseDTO markDone(Long id) {
+//        Task task = repo.findById(id).orElseThrow(()->
+//                new RuntimeException("Task not found with id"+id));
+//        task.setStatus("DONE");
+//        task.setUpdatedAt(LocalDateTime.now());
+//        Task updatedTask = repo.save(task);
+//        return TaskMapper.toDto(updatedTask);
+//    }
+
+//    @Override
+//    public List<TaskResponseDTO> getTasksByStatus(String status) {
+//
+//    }
 }

@@ -5,6 +5,8 @@ import com.karan.tasktracker.dto.response.TaskResponseDTO;
 import com.karan.tasktracker.service.TaskService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/tasks")
 public class TaskController {
@@ -14,6 +16,10 @@ public class TaskController {
         this.service = service;
     }
 
+    @GetMapping
+    public List<TaskResponseDTO> getAllTasks(){
+        return service.getAllTask();
+    }
     @PostMapping
     public TaskResponseDTO createTask(@RequestBody TaskRequestDTO dto){
         return service.createTask(dto);
