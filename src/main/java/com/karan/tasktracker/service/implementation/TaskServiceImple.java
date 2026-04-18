@@ -51,31 +51,37 @@ public class TaskServiceImple implements TaskService {
                 .collect(Collectors.toList());
     }
 
-//    @Override
-//    public TaskResponseDTO markInProgress(Long id) {
-//        Task task = repo.findById(id).orElseThrow(()->
-//                new RuntimeException("Task not found with id"+id));
-//
-//        task.setStatus("IN_PROGRESS");
-//        task.setUpdatedAt(LocalDateTime.now());
-//
-//        Task updatedTask = repo.save(task);
-//
-//        return TaskMapper.toDto(updatedTask);
-//    }
-//
-//    @Override
-//    public TaskResponseDTO markDone(Long id) {
-//        Task task = repo.findById(id).orElseThrow(()->
-//                new RuntimeException("Task not found with id"+id));
-//        task.setStatus("DONE");
-//        task.setUpdatedAt(LocalDateTime.now());
-//        Task updatedTask = repo.save(task);
-//        return TaskMapper.toDto(updatedTask);
-//    }
+    @Override
+    public TaskResponseDTO markInProgress(Long id) {
+        Task task = repo.findById(id).orElseThrow(()->
+                new RuntimeException("Task not found with id"+id));
 
-//    @Override
-//    public List<TaskResponseDTO> getTasksByStatus(String status) {
-//
-//    }
+        task.setStatus("IN_PROGRESS");
+        task.setUpdatedAt(LocalDateTime.now());
+
+        Task updatedTask = repo.save(task);
+
+        return TaskMapper.toDto(updatedTask);
+    }
+
+    @Override
+    public TaskResponseDTO markDone(Long id) {
+        Task task = repo.findById(id).orElseThrow(()->
+                new RuntimeException("Task not found with id"+id));
+        task.setStatus("DONE");
+        task.setUpdatedAt(LocalDateTime.now());
+        Task updatedTask = repo.save(task);
+        return TaskMapper.toDto(updatedTask);
+    }
+
+    @Override
+    public List<TaskResponseDTO> getTasksByStatus(String status) {
+
+        String formattedStatus = status.toUpperCase().replace("-", "_");
+
+        return repo.findByStatus(formattedStatus)
+                .stream()
+                .map(TaskMapper::toDto)
+                .toList();
+    }
 }

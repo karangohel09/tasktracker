@@ -34,4 +34,19 @@ public class TaskController {
     public void deleteTask(@PathVariable Long id){
         service.deleteTask(id);
     }
+
+    @PatchMapping("/{id}/in-progress")
+    public TaskResponseDTO markInProgress(@PathVariable Long id){
+        return service.markInProgress(id);
+    }
+
+    @PatchMapping("/{id}/done")
+    public TaskResponseDTO markDone(@PathVariable Long id){
+        return service.markDone(id);
+    }
+
+    @GetMapping
+    public List<TaskResponseDTO> getTaskByStatus(@RequestParam(required = false) String status){
+        return service.getTasksByStatus(status);
+    }
 }
