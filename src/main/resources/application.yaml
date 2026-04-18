@@ -6,22 +6,15 @@ spring:
     url: jdbc:mysql://localhost:3307/task
     username: root
     password: root
-    driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: true
+    database-platform: org.hibernate.dialect.MySQLDialect
     properties:
       hibernate:
         format_sql: true
 
-  sql:
-    init:
-      mode: always
-
-  security:
-    username : "karan"
-    password : "karan123"
 server:
   port: 8081

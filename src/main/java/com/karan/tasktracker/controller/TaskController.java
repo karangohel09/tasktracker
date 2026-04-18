@@ -3,6 +3,7 @@ package com.karan.tasktracker.controller;
 import com.karan.tasktracker.dto.request.TaskRequestDTO;
 import com.karan.tasktracker.dto.response.TaskResponseDTO;
 import com.karan.tasktracker.service.TaskService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,12 +22,12 @@ public class TaskController {
         return service.getAllTask();
     }
     @PostMapping
-    public TaskResponseDTO createTask(@RequestBody TaskRequestDTO dto){
+    public TaskResponseDTO createTask(@Valid @RequestBody TaskRequestDTO dto){
         return service.createTask(dto);
     }
 
     @PutMapping("/{id}")
-    public TaskResponseDTO updateTask(@PathVariable Long id , @RequestBody TaskRequestDTO dto){
+    public TaskResponseDTO updateTask(@PathVariable Long id ,@Valid @RequestBody TaskRequestDTO dto){
         return service.updateTask(id , dto);
     }
 
@@ -45,7 +46,7 @@ public class TaskController {
         return service.markDone(id);
     }
 
-    @GetMapping
+    @GetMapping("/status")
     public List<TaskResponseDTO> getTaskByStatus(@RequestParam(required = false) String status){
         return service.getTasksByStatus(status);
     }
