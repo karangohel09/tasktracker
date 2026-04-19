@@ -9,4 +9,11 @@ import lombok.Setter;
 public class TaskRequestDTO {
     @NotBlank(message = "description cannot be empty")
     private String description;
+
+    public TaskRequestDTO() {
+    }
+
+    public TaskRequestDTO(String description) {
+        this.description = description;
+    }
 }
