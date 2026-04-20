@@ -3,6 +3,7 @@ package com.karan.tasktracker.service.implementation;
 import com.karan.tasktracker.dto.request.TaskRequestDTO;
 import com.karan.tasktracker.dto.response.TaskResponseDTO;
 import com.karan.tasktracker.entity.Task;
+import com.karan.tasktracker.exception.TaskNotFoundException;
 import com.karan.tasktracker.mapper.TaskMapper;
 import com.karan.tasktracker.repository.TaskRepo;
 import com.karan.tasktracker.service.TaskService;
@@ -13,11 +14,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class TaskServiceImple implements TaskService {
+public class TaskServiceImpl implements TaskService {
 
     private final TaskRepo repo;
 
-    public TaskServiceImple(TaskRepo repo) {
+    public TaskServiceImpl(TaskRepo repo) {
         this.repo = repo;
     }
 
@@ -30,7 +31,7 @@ public class TaskServiceImple implements TaskService {
 
     @Override
     public TaskResponseDTO updateTask(Long id, TaskRequestDTO dto) {
-        Task task = repo.findById(id).orElseThrow(()->new RuntimeException("Task not found with id "+id));
+        Task task = repo.findById(id).orElseThrow(()->new TaskNotFoundException("Task not found with id "+id));
         TaskMapper.updateEntity(task,dto);
         Task updatedTask = repo.save(task);
         return TaskMapper.toDto(updatedTask);
@@ -38,7 +39,7 @@ public class TaskServiceImple implements TaskService {
 
     @Override
     public void deleteTask(Long id) {
-        Task task = repo.findById(id).orElseThrow(()->new RuntimeException("Task not found with id"+id));
+        Task task = repo.findById(id).orElseThrow(()->new TaskNotFoundException("Task not found with id"+id));
         repo.deleteById(id);
     }
 
@@ -54,7 +55,7 @@ public class TaskServiceImple implements TaskService {
     @Override
     public TaskResponseDTO markInProgress(Long id) {
         Task task = repo.findById(id).orElseThrow(()->
-                new RuntimeException("Task not found with id"+id));
+                new TaskNotFoundException("Task not found with id"+id));
 
         task.setStatus("IN_PROGRESS");
         task.setUpdatedAt(LocalDateTime.now());
@@ -67,7 +68,7 @@ public class TaskServiceImple implements TaskService {
     @Override
     public TaskResponseDTO markDone(Long id) {
         Task task = repo.findById(id).orElseThrow(()->
-                new RuntimeException("Task not found with id"+id));
+                new TaskNotFoundException("Task not found with id"+id));
         task.setStatus("DONE");
         task.setUpdatedAt(LocalDateTime.now());
         Task updatedTask = repo.save(task);
