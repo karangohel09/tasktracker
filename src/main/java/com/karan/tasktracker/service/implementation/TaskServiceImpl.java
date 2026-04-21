@@ -7,6 +7,9 @@ import com.karan.tasktracker.exception.TaskNotFoundException;
 import com.karan.tasktracker.mapper.TaskMapper;
 import com.karan.tasktracker.repository.TaskRepo;
 import com.karan.tasktracker.service.TaskService;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -44,12 +47,13 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public List<TaskResponseDTO> getAllTask() {
+    public List<TaskResponseDTO> getAllTask(int page, int size, String sortBy) {
+        Pageable pageable = PageRequest.of(page,size,Sort.by(sortBy));
         return repo
-                .findAll()
+                .findAll(pageable)
                 .stream()
                 .map(TaskMapper::toDto)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override

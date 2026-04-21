@@ -18,8 +18,11 @@ public class TaskController {
     }
 
     @GetMapping
-    public List<TaskResponseDTO> getAllTasks(){
-        return service.getAllTask();
+    public List<TaskResponseDTO> getAllTasks(@RequestParam(defaultValue = "0") int page,
+                                             @RequestParam(defaultValue = "5") int size,
+                                             @RequestParam(defaultValue = "id") String sortBy
+                                             ){
+        return service.getAllTask(page,size,sortBy);
     }
     @PostMapping
     public TaskResponseDTO createTask(@Valid @RequestBody TaskRequestDTO dto){

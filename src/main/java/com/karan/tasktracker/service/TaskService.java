@@ -9,7 +9,7 @@ public interface TaskService {
     TaskResponseDTO createTask(TaskRequestDTO dto);
     TaskResponseDTO updateTask(Long id,TaskRequestDTO dto);
     void deleteTask(Long id);
-    List<TaskResponseDTO> getAllTask();
+    List<TaskResponseDTO> getAllTask(int page ,int size,String sortBy);
     TaskResponseDTO markInProgress(Long id);
     TaskResponseDTO markDone(Long id);
     List<TaskResponseDTO> getTasksByStatus(String status);
