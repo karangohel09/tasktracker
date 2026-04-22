@@ -1,10 +1,8 @@
 package com.karan.tasktracker.entity;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.karan.tasktracker.enums.TaskStatus;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,7 +22,8 @@ public class Task {
 
     private String description;
 
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private TaskStatus status;
 
     private LocalDateTime createdAt;
 

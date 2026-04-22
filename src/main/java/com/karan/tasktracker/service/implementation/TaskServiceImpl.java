@@ -3,6 +3,7 @@ package com.karan.tasktracker.service.implementation;
 import com.karan.tasktracker.dto.request.TaskRequestDTO;
 import com.karan.tasktracker.dto.response.TaskResponseDTO;
 import com.karan.tasktracker.entity.Task;
+import com.karan.tasktracker.enums.TaskStatus;
 import com.karan.tasktracker.exception.TaskNotFoundException;
 import com.karan.tasktracker.mapper.TaskMapper;
 import com.karan.tasktracker.repository.TaskRepo;
@@ -61,7 +62,7 @@ public class TaskServiceImpl implements TaskService {
         Task task = repo.findById(id).orElseThrow(()->
                 new TaskNotFoundException("Task not found with id"+id));
 
-        task.setStatus("IN_PROGRESS");
+        task.setStatus(TaskStatus.IN_PROGRESS);
         task.setUpdatedAt(LocalDateTime.now());
 
         Task updatedTask = repo.save(task);
@@ -73,7 +74,7 @@ public class TaskServiceImpl implements TaskService {
     public TaskResponseDTO markDone(Long id) {
         Task task = repo.findById(id).orElseThrow(()->
                 new TaskNotFoundException("Task not found with id"+id));
-        task.setStatus("DONE");
+        task.setStatus(TaskStatus.DONE);
         task.setUpdatedAt(LocalDateTime.now());
         Task updatedTask = repo.save(task);
         return TaskMapper.toDto(updatedTask);
