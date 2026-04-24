@@ -8,6 +8,7 @@ import com.karan.tasktracker.exception.TaskNotFoundException;
 import com.karan.tasktracker.mapper.TaskMapper;
 import com.karan.tasktracker.repository.TaskRepo;
 import com.karan.tasktracker.service.TaskService;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -15,7 +16,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class TaskServiceImpl implements TaskService {
@@ -48,16 +48,6 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public List<TaskResponseDTO> getAllTask(int page, int size, String sortBy) {
-        Pageable pageable = PageRequest.of(page,size,Sort.by(sortBy));
-        return repo
-                .findAll(pageable)
-                .stream()
-                .map(TaskMapper::toDto)
-                .toList();
-    }
-
-    @Override
     public TaskResponseDTO markInProgress(Long id) {
         Task task = repo.findById(id).orElseThrow(()->
                 new TaskNotFoundException("Task not found with id"+id));
@@ -81,11 +71,24 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public List<TaskResponseDTO> getTasksByStatus(String status) {
+    public List<TaskResponseDTO> getTasks(int page, int size, String sortBy, String direction, TaskStatus status) {
+        Sort sort = direction.equalsIgnoreCase("desc") ?
+                Sort.by(sortBy).descending() :
+                Sort.by(sortBy).ascending();
 
-        String formattedStatus = status.toUpperCase().replace("-", "_");
+        Pageable pageable = PageRequest.of(page,size,sort);
 
-        return repo.findByStatus(formattedStatus)
+        Page<Task> taskPage;
+
+        if(status != null){
+            taskPage = repo.findByStatus(status,pageable);
+        }
+        else{
+            taskPage = repo.findAll(pageable);
+        }
+
+        System.out.println("STATUS: " + status);
+        return taskPage
                 .stream()
                 .map(TaskMapper::toDto)
                 .toList();

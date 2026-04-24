@@ -2,6 +2,7 @@ package com.karan.tasktracker.controller;
 
 import com.karan.tasktracker.dto.request.TaskRequestDTO;
 import com.karan.tasktracker.dto.response.TaskResponseDTO;
+import com.karan.tasktracker.enums.TaskStatus;
 import com.karan.tasktracker.service.TaskService;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
@@ -18,11 +19,14 @@ public class TaskController {
     }
 
     @GetMapping
-    public List<TaskResponseDTO> getAllTasks(@RequestParam(defaultValue = "0") int page,
-                                             @RequestParam(defaultValue = "5") int size,
-                                             @RequestParam(defaultValue = "id") String sortBy
-                                             ){
-        return service.getAllTask(page,size,sortBy);
+    public List<TaskResponseDTO> getTasks(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "5") int size,
+            @RequestParam(defaultValue = "id") String sortBy,
+            @RequestParam(defaultValue = "asc") String direction,
+            @RequestParam(required = false)TaskStatus status
+            ){
+            return service.getTasks(page,size,sortBy,direction,status);
     }
     @PostMapping
     public TaskResponseDTO createTask(@Valid @RequestBody TaskRequestDTO dto){
@@ -49,8 +53,4 @@ public class TaskController {
         return service.markDone(id);
     }
 
-    @GetMapping("/status")
-    public List<TaskResponseDTO> getTaskByStatus(@RequestParam(required = false) String status){
-        return service.getTasksByStatus(status);
-    }
 }

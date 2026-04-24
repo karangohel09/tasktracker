@@ -2,6 +2,7 @@ package com.karan.tasktracker.service;
 
 import com.karan.tasktracker.dto.request.TaskRequestDTO;
 import com.karan.tasktracker.dto.response.TaskResponseDTO;
+import com.karan.tasktracker.enums.TaskStatus;
 
 import java.util.List;
 
@@ -9,8 +10,13 @@ public interface TaskService {
     TaskResponseDTO createTask(TaskRequestDTO dto);
     TaskResponseDTO updateTask(Long id,TaskRequestDTO dto);
     void deleteTask(Long id);
-    List<TaskResponseDTO> getAllTask(int page ,int size,String sortBy);
     TaskResponseDTO markInProgress(Long id);
     TaskResponseDTO markDone(Long id);
-    List<TaskResponseDTO> getTasksByStatus(String status);
+    List<TaskResponseDTO> getTasks(
+            int page,
+            int size,
+            String sortBy,
+            String direction,
+            TaskStatus status
+    );
 }
