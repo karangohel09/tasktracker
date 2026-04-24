@@ -1,5 +1,6 @@
 package com.karan.tasktracker.dto.response;
 
+import com.karan.tasktracker.enums.TaskStatus;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,7 +13,7 @@ public class TaskResponseDTO {
 
     private String description;
 
-    private String status;
+    private TaskStatus status;
 
     private LocalDateTime createdAt;
 

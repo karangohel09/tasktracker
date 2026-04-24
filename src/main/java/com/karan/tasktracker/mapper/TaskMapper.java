@@ -3,6 +3,7 @@ package com.karan.tasktracker.mapper;
 import com.karan.tasktracker.dto.request.TaskRequestDTO;
 import com.karan.tasktracker.dto.response.TaskResponseDTO;
 import com.karan.tasktracker.entity.Task;
+import com.karan.tasktracker.enums.TaskStatus;
 
 import java.time.LocalDateTime;
 
@@ -22,7 +23,7 @@ public class TaskMapper {
         task.setDescription(dto.getDescription());
         task.setCreatedAt(LocalDateTime.now());
         task.setUpdatedAt(LocalDateTime.now());
-        task.setStatus("TODO");
+        task.setStatus(TaskStatus.TODO);
         return task;
     }
 
