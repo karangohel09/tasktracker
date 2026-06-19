@@ -97,10 +97,14 @@ spring:
 
 ## 🔍 Sample Endpoints
 
-GET    /tasks        → Get all tasks  
-POST   /tasks        → Create a task  
-PUT    /tasks/{id}   → Update task  
-DELETE /tasks/{id}   → Delete task  
+| Method | Endpoint                   | Description                |
+|--------|----------------------------|----------------------------|
+| GET    | /tasks                     | Get all tasks              |
+| POST   | /tasks                     | Create a task              |
+| PUT    | /tasks/{id}                | Update task                |
+| DELETE | /tasks/{id}                | Delete task                |
+| PATCH  | /tasks/{id}/in-progress    | Mark task as In Progress   |
+| PATCH  | /tasks/{id}/done           | Mark task as Completed     |
 
 ---
 
