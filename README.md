@@ -1,133 +1,222 @@
 # 📝 Task Tracker API
 
-A production-ready RESTful API for managing tasks, built using Spring Boot.  
-This project demonstrates clean backend architecture, role-based access control, pagination, filtering, and scalable design.
+A production-ready RESTful Task Management API built with **Spring Boot** following clean architecture principles. This project demonstrates scalable backend development using **Spring Security**, **Spring Data JPA**, **MySQL**, **Docker**, and **Swagger/OpenAPI**.
 
 ---
 
-## 🚀 Features
+# 🚀 Features
 
-- Full CRUD operations for task management
-- Role-based authentication (Admin / User)
-- Custom UserDetailsService implementation
-- Pagination, sorting, and filtering support
-- Task status management (TODO, IN_PROGRESS, DONE)
-- Global exception handling
-- DTO & Mapper pattern
-- Swagger/OpenAPI integration
-- Clean layered architecture
-
----
-
-## 🛠 Tech Stack
-
-- Java
-- Spring Boot
-- Spring Security
-- Spring Data JPA (Hibernate)
-- MySQL
-- Swagger / OpenAPI
-- Maven
+* ✅ Full CRUD operations for task management
+* ✅ Role-based authentication (Admin / User)
+* ✅ Custom UserDetailsService implementation
+* ✅ Pagination, sorting, and filtering
+* ✅ Task status management (TODO, IN_PROGRESS, DONE)
+* ✅ Global exception handling
+* ✅ DTO & Mapper pattern
+* ✅ Swagger/OpenAPI documentation
+* ✅ Dockerized Spring Boot application
+* ✅ Dockerized MySQL database using Docker Compose
+* ✅ Clean layered architecture
 
 ---
 
-## 🗄 Database
+# 🛠 Tech Stack
 
-- MySQL (Primary database)
-- Designed using relational schema
-- Supports pagination and efficient querying
-
----
-
-## 📊 Advanced Features
-
-- Pagination using PageRequest
-- Sorting by fields (ascending / descending)
-- Status-based filtering (TODO, IN_PROGRESS, DONE)
-- Role-based authorization
-- Modular service-layer architecture
+* Java 17
+* Spring Boot
+* Spring Security
+* Spring Data JPA (Hibernate)
+* MySQL 8
+* Docker
+* Docker Compose
+* Swagger / OpenAPI
+* Maven
 
 ---
 
-## 📂 Project Structure
+# 🗄 Database
 
+* MySQL 8
+* Relational database design
+* Docker volume for persistent database storage
+* Supports pagination and optimized querying
+
+---
+
+# 📊 Advanced Features
+
+* Pagination using `PageRequest`
+* Dynamic Sorting
+* Status-based filtering
+* Role-based authorization
+* DTO & Mapper architecture
+* Service layer abstraction
+* Global Exception Handling
+* Dockerized development environment
+
+---
+
+# 📂 Project Structure
+
+```text
 src/main/java/com/karan/tasktracker/
 │
+├── config
 ├── controller
+├── dto
+│   ├── request
+│   └── response
+├── entity
+├── enums
+├── exception
+├── mapper
+├── repository
+├── security
 ├── service
 │   └── implementation
-├── repository
-├── entity
-├── dto
-├── mapper
-├── config
-├── security
-├── exception
-└── enums
+└── TasktrackerApplication.java
+```
 
 ---
 
-## 📌 API Documentation
+# 📌 API Documentation
 
-Swagger UI available at:
-http://localhost:8080/swagger-ui/index.html
+After running the project, Swagger UI is available at:
+
+```
+http://localhost:8081/swagger-ui/index.html
+```
 
 ---
 
-## ⚙️ Setup & Run
+# 🐳 Running with Docker
 
-1. Clone the repository
+## Build and start containers
+
+```bash
+docker compose up --build
+```
+
+Run in detached mode:
+
+```bash
+docker compose up -d
+```
+
+Stop containers:
+
+```bash
+docker compose down
+```
+
+---
+
+# 💻 Running Without Docker
+
+### 1. Clone Repository
+
+```bash
 git clone https://github.com/karangohel09/tasktracker.git
+```
 
-2. Navigate to project
+### 2. Navigate to Project
+
+```bash
 cd tasktracker
+```
 
-3. Configure MySQL in application.yml
+### 3. Configure MySQL
 
-spring:
-  datasource:
-    url: jdbc:mysql://localhost:3306/tasktracker
-    username: your_username
-    password: your_password
+Update your `application.properties` or `application.yml`.
 
-4. Run the application
+Example:
+
+```properties
+spring.datasource.url=jdbc:mysql://localhost:3306/task
+spring.datasource.username=root
+spring.datasource.password=root
+```
+
+### 4. Run the Application
+
+```bash
 ./mvnw spring-boot:run
+```
+
+or
+
+```bash
+mvn spring-boot:run
+```
 
 ---
 
-## 🔍 Sample Endpoints
+# 🐬 Docker MySQL Configuration
 
-| Method | Endpoint                   | Description                |
-|--------|----------------------------|----------------------------|
-| GET    | /tasks                     | Get all tasks              |
-| POST   | /tasks                     | Create a task              |
-| PUT    | /tasks/{id}                | Update task                |
-| DELETE | /tasks/{id}                | Delete task                |
-| PATCH  | /tasks/{id}/in-progress    | Mark task as In Progress   |
-| PATCH  | /tasks/{id}/done           | Mark task as Completed     |
+When using Docker Compose:
 
----
+| Property       | Value                                                 |
+| -------------- | ----------------------------------------------------- |
+| Database       | task                                                  |
+| Username       | root                                                  |
+| Password       | root                                                  |
+| Container Port | 3306                                                  |
+| Host Port      | 3308 *(or the port configured in docker-compose.yml)* |
 
-## 🔐 Security
-
-- Role-based authentication (Admin / User)
-- Custom UserDetailsService implementation
-- Secure endpoint handling
-- (Planned) JWT authentication
+You can connect using MySQL Workbench or any MySQL client.
 
 ---
 
-## 📈 Future Improvements
+# 🔍 Sample Endpoints
 
-- JWT-based authentication
-- Docker containerization
-- Deployment (AWS / Render)
-- Advanced filtering and search
+| Method | Endpoint                      | Description              |
+| ------ | ----------------------------- | ------------------------ |
+| GET    | `/api/tasks`                  | Get all tasks            |
+| GET    | `/api/tasks/{id}`             | Get task by ID           |
+| POST   | `/api/tasks`                  | Create a task            |
+| PUT    | `/api/tasks/{id}`             | Update a task            |
+| DELETE | `/api/tasks/{id}`             | Delete a task            |
+| PATCH  | `/api/tasks/{id}/in-progress` | Mark task as In Progress |
+| PATCH  | `/api/tasks/{id}/done`        | Mark task as Completed   |
 
 ---
 
-## 👨‍💻 Author
+# 🔐 Security
 
-Karan Gohel  
-GitHub: https://github.com/karangohel09  
-LinkedIn: https://linkedin.com/in/karan-gohel  
+* Role-based authentication
+* Admin/User authorization
+* Spring Security
+* Custom UserDetailsService
+* Password encryption
+
+### Planned
+
+* JWT Authentication
+* Refresh Tokens
+
+---
+
+# 📈 Future Improvements
+
+* JWT Authentication
+* Refresh Tokens
+* User Registration & Login APIs
+* Email Verification
+* Unit & Integration Testing
+* Redis Caching
+* CI/CD Pipeline (GitHub Actions)
+* Deployment on AWS / Render
+* Kubernetes Support
+* Monitoring with Prometheus & Grafana
+
+---
+
+# 👨‍💻 Author
+
+**Karan Gohel**
+
+GitHub
+https://github.com/karangohel09
+
+LinkedIn
+https://linkedin.com/in/karan-gohel
