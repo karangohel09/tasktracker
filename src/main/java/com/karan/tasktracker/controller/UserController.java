@@ -23,7 +23,7 @@ public class UserController {
     }
 
     @PostMapping
-    public UserResponseDTO register(UserRequestDTO dto){
+    public UserResponseDTO register(@RequestBody UserRequestDTO dto){
         return service.register(dto);
     }
 
