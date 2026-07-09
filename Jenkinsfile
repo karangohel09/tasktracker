@@ -6,11 +6,6 @@ pipeline {
         CONTAINER_NAME = "tasktracker"
     }
 
-    tools {
-        maven 'Maven'
-        jdk 'JDK17'
-    }
-
     stages {
 
         stage('Checkout') {
@@ -34,17 +29,13 @@ pipeline {
 
         stage('Stop Existing Containers') {
             steps {
-                bat '''
-            docker-compose down
-            '''
+                bat 'docker compose down'
             }
         }
 
         stage('Start Containers') {
             steps {
-                bat '''
-            docker-compose up -d --build
-            '''
+                bat 'docker compose up -d --build'
             }
         }
 
@@ -64,5 +55,4 @@ pipeline {
             echo 'Pipeline failed.'
         }
     }
-
 }
